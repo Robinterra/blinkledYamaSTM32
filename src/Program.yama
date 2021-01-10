@@ -1,0 +1,83 @@
+namespace "Program"
+{
+    using "System";
+    using "System.IO";
+    using "System.Time";
+    using "ARM.CortexM";
+
+    public class ProgramTest
+    {
+
+        #region get/set
+
+        private int PinArt;
+        private int propValue;
+
+        public int PortArt
+        {
+            get
+            {
+                return this.propValue;
+            }
+            set
+            {
+                this.propValue = invalue;
+            }
+        }
+
+        #endregion get/set
+
+        static int main()
+        {
+            int port = IORegister.PortA();
+            ProgramTest test = new ProgramTest(port, 2);
+
+            while (true)
+            {
+                test.An();
+
+                Wait.InSeconds(1);
+
+                test.Aus();
+
+                Wait.InSeconds(1);
+            }
+
+            return 0;
+        }
+
+        #region ctor
+
+        public this new (int port, int pin)
+        {
+            IORegister.InitPort ( port, pin, IORegisterMode.Write );
+
+            this.PortArt = port;
+            this.PinArt = pin;
+
+            return this;
+        }
+
+        public this ~()
+        {
+
+        }
+
+        #endregion ctor
+
+        #region methods
+
+        public bool An()
+        {
+            IORegister.Write ( this.PortArt, this.PinArt, IOValue.High );
+        }
+        public bool Aus()
+        {
+            IORegister.Write ( this.PortArt, this.PinArt, IOValue.Low );
+        }
+
+        #endregion methods
+
+    }
+
+}
