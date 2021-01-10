@@ -30,18 +30,15 @@ namespace "Program"
         static int main()
         {
             int port = IORegister.PortA();
-            //ProgramTest test = new ProgramTest(port, 2);
-            IORegister.InitPort ( port, 2, IORegisterMode.Write );
+            ProgramTest test = new ProgramTest(port, 2);
 
             while (true)
             {
-                //test.An();
-                IORegister.Write ( port, 2, IOValue.High );
+                test.An();
 
                 Wait.InSeconds(1);
 
-                //test.Aus();
-                IORegister.Write ( port, 2, IOValue.Low );
+                test.Aus();
 
                 Wait.InSeconds(1);
             }
