@@ -10,10 +10,10 @@ namespace "Program"
 
         #region get/set
 
-        private int PinArt;
+        private Gpio PinArt;
         private int propValue;
 
-        public int PortArt
+        public Gpio PortArt
         {
             get
             {
@@ -29,11 +29,22 @@ namespace "Program"
 
         static int main()
         {
-            int port = IORegister.PortA();
+            Gpio port = IORegister.PortA();
+
+            port.InitPort ( 2, IORegisterMode.Write );
+            //port.InitPort ( 1, IORegisterMode.Analog );
+
             ProgramTest test = new ProgramTest(port, 2);
+
+            //IORegister.InitAdc();
+            //int adcReg = IORegister.Adc1StartRegister();
 
             while (true)
             {
+                //int value = IORegister.ReadAnalog(adcReg, 1);
+
+                //bool isAn = value > 0x0cff;//IORegister.Read ( port, 1 );
+
                 test.An();
 
                 Wait.InSeconds(1);
@@ -50,7 +61,7 @@ namespace "Program"
 
         public this new (int port, int pin)
         {
-            IORegister.InitPort ( port, pin, IORegisterMode.Write );
+            //IORegister.InitPort ( port, pin, IORegisterMode.Write );
 
             this.PortArt = port;
             this.PinArt = pin;

@@ -1,7 +1,7 @@
 src:=./src
 bin:=./bin
 assemblerdefinition:=arm-t32
-microcontroller:=STM32F303
+microcontroller:=STM32F401
 defines:=define $(microcontroller)
 outasmFile:=out.S
 skip:=0x8000000
