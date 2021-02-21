@@ -15,21 +15,46 @@ namespace "Program"
 
         #endregion get/set
 
-        static int main (  )
+        static bool Init()
         {
             Gpio port = IORegister.PortA (  );
+            Gpio portC = IORegister.PortC (  );
             AnalogToDigitalConverter adc1 = IORegister.Adc1 (  );
             ResetAndClockControl rcc = IORegister.Rcc (  );
 
             rcc.EnableAdc1 (  );
             adc1.Init (  );
 
-            port.InitPort ( 2, IORegisterMode.Write );
             port.InitPort ( 1, IORegisterMode.Analog );
 
-            GpioPin pin = new GpioPin(port, 2);
+            port.InitPort ( 2, IORegisterMode.Write );
+            port.InitPort ( 3, IORegisterMode.Write );
+            port.InitPort ( 4, IORegisterMode.Write );
+            port.InitPort ( 5, IORegisterMode.Write );
+            port.InitPort ( 6, IORegisterMode.Write );
+            port.InitPort ( 7, IORegisterMode.Write );
 
-            ProgramTest test = new ProgramTest(pin);
+            portC.InitPort ( 4, IORegisterMode.Write );
+        }
+
+        static int main (  )
+        {
+            ProgramTest.Init();
+
+            Gpio port = IORegister.PortA (  );
+            Gpio portC = IORegister.PortC (  );
+
+            GpioPin pinBr = new GpioPin(port, 2);
+            GpioPin pinB = new GpioPin(port, 3);
+            GpioPin pinBl = new GpioPin(port, 4);
+
+            GpioPin pinM = new GpioPin(port, 5);
+
+            GpioPin pinTl = new GpioPin(port, 6);
+            GpioPin pinT = new GpioPin(port, 7);
+            GpioPin pinTr = new GpioPin(portC, 4);
+
+            SegmentDisplay display = new SegmentDisplay ( pinBr, pinB, pinBl, pinM, pinTr, pinT, pinTl );
 
             while (true)
             {
@@ -37,18 +62,12 @@ namespace "Program"
 
                 //bool isAn = value > 0x0cff;
 
-                //if (isAn)
-                //{
-                    test.An();
+                for (int i = 0; i <= 0xf; i = i + 1)
+                {
+                    display.Write ( i );
 
-                    Wait.InSeconds(1);
-
-                //    continue;
-                //}
-
-                test.Aus();
-
-                Wait.InSeconds(1);
+                    Wait.InSeconds ( 1 );
+                }
             }
 
             return 0;

@@ -1,0 +1,208 @@
+namespace "Program"
+{
+    using "System";
+    using "System.IO";
+
+    public class SegmentDisplay
+    {
+
+        // -----------------------------------------------
+
+        #region vars
+
+        // -----------------------------------------------
+
+        public GpioPin SegmentBottomRight;
+        public GpioPin SegmentBottom;
+        public GpioPin SegmentBottomLeft;
+        public GpioPin SegmentMiddle;
+        public GpioPin SegmentTopRight;
+        public GpioPin SegmentTop;
+        public GpioPin SegmentTopLeft;
+
+        // -----------------------------------------------
+
+        #endregion vars
+
+        // -----------------------------------------------
+
+        public this new ( GpioPin br, GpioPin b, GpioPin bl, GpioPin m, GpioPin tr, GpioPin t, GpioPin tl )
+        {
+            this.SegmentBottomRight = br;
+            this.SegmentBottom = b;
+            this.SegmentBottomLeft = bl;
+            this.SegmentMiddle = m;
+            this.SegmentTopRight = tr;
+            this.SegmentTop = t;
+            this.SegmentTopLeft = tl;
+
+            this;
+        }
+
+        // -----------------------------------------------
+
+        public this ~ (  )
+        {
+
+        }
+
+        // -----------------------------------------------
+
+        #region methods
+
+        // -----------------------------------------------
+
+        private bool SetSegments ( int tr, int t, int tl, int m, int bl, int b, int br )
+        {
+            this.SegmentTopLeft.Write(tr);
+            this.SegmentTop.Write(t);
+            this.SegmentTopRight.Write(tl);
+            this.SegmentMiddle.Write(m);
+            this.SegmentBottomLeft.Write(bl);
+            this.SegmentBottom.Write(b);
+            this.SegmentBottomRight.Write(br);
+        }
+
+        // -----------------------------------------------
+
+        private bool Print0 (  )
+        {
+            this.SetSegments(IOValue.High, IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.High, IOValue.High);
+        }
+
+        // -----------------------------------------------
+
+        private bool Print1 (  )
+        {
+            this.SetSegments(IOValue.Low, IOValue.Low, IOValue.High, IOValue.Low, IOValue.Low, IOValue.Low, IOValue.High);
+        }
+
+        // -----------------------------------------------
+
+        private bool Print2 (  )
+        {
+            this.SetSegments(IOValue.Low, IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.Low);
+        }
+
+        // -----------------------------------------------
+
+        private bool Print3 (  )
+        {
+            this.SetSegments(IOValue.Low, IOValue.High, IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.High);
+        }
+
+        // -----------------------------------------------
+
+        private bool Print4 (  )
+        {
+            this.SetSegments(IOValue.High, IOValue.Low, IOValue.High, IOValue.High, IOValue.Low, IOValue.Low, IOValue.High);
+        }
+
+        // -----------------------------------------------
+
+        private bool Print5 (  )
+        {
+            this.SetSegments(IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.Low, IOValue.High, IOValue.High);
+        }
+
+        // -----------------------------------------------
+
+        private bool Print6 (  )
+        {
+            this.SetSegments(IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.High, IOValue.High, IOValue.High);
+        }
+
+        // -----------------------------------------------
+
+        private bool Print7 (  )
+        {
+            this.SetSegments(IOValue.Low, IOValue.High, IOValue.High, IOValue.Low, IOValue.Low, IOValue.Low, IOValue.High);
+        }
+
+        // -----------------------------------------------
+
+        private bool Print8 (  )
+        {
+            this.SetSegments(IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.High);
+        }
+
+        // -----------------------------------------------
+
+        private bool Print9 (  )
+        {
+            this.SetSegments(IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.High);
+        }
+
+        // -----------------------------------------------
+
+        private bool PrintA (  )
+        {
+            this.SetSegments(IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.Low, IOValue.High);
+        }
+
+        // -----------------------------------------------
+
+        private bool PrintB (  )
+        {
+            this.SetSegments(IOValue.High, IOValue.Low, IOValue.Low, IOValue.High, IOValue.High, IOValue.High, IOValue.High);
+        }
+
+        // -----------------------------------------------
+
+        private bool PrintC (  )
+        {
+            this.SetSegments(IOValue.High, IOValue.High, IOValue.Low, IOValue.Low, IOValue.High, IOValue.High, IOValue.Low);
+        }
+
+        // -----------------------------------------------
+
+        private bool PrintD (  )
+        {
+            this.SetSegments(IOValue.Low, IOValue.Low, IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.High);
+        }
+
+        // -----------------------------------------------
+
+        private bool PrintE (  )
+        {
+            this.SetSegments(IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.High, IOValue.High, IOValue.Low);
+        }
+
+        // -----------------------------------------------
+
+        private bool PrintF (  )
+        {
+            this.SetSegments(IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.High, IOValue.Low, IOValue.Low);
+        }
+
+        // -----------------------------------------------
+
+        public bool Write ( int value )
+        {
+            if (value <= 0x0) return this.Print0 (  );
+            if (value <= 0x1) return this.Print1 (  );
+            if (value <= 0x2) return this.Print2 (  );
+            if (value <= 0x3) return this.Print3 (  );
+            if (value <= 0x4) return this.Print4 (  );
+            if (value <= 0x5) return this.Print5 (  );
+            if (value <= 0x6) return this.Print6 (  );
+            if (value <= 0x7) return this.Print7 (  );
+            if (value <= 0x8) return this.Print8 (  );
+            if (value <= 0x9) return this.Print9 (  );
+            if (value <= 0xa) return this.PrintA (  );
+            if (value <= 0xb) return this.PrintB (  );
+            if (value <= 0xc) return this.PrintC (  );
+            if (value <= 0xd) return this.PrintD (  );
+            if (value <= 0xe) return this.PrintE (  );
+            if (value <= 0xf) return this.PrintF (  );
+
+        }
+
+        // -----------------------------------------------
+
+        #endregion methods
+
+        // -----------------------------------------------
+
+    }
+}
