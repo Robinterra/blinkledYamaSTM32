@@ -1,6 +1,14 @@
 .syntax unified
 .cpu cortex-m4
 .thumb
+loop:
+mov r11, #1
+push {r11}
+mov r12, #2
+ldr r1, [sp,#0x4]
+ldr r2, [sp,#0x0]
+
+b loop
 // RCC Aktiviere Gpios
 //ldr r0,=0x40021014
 //mov r1, #0xf
@@ -8,7 +16,7 @@
 //lsl r1, r1, #0x10
 //orr r1,r1,r2
 //str r1,[r0]
-mov r8, #1
+/*mov r8, #1
 mov r0, #1
 mov r1,#0xc
 and r0, r1, #0xc
@@ -171,4 +179,4 @@ add sp, sp, #0x4
 mov r8, #0xb
 pop {r9,r10,r11}
 mov r8, #0xc
-mov pc, r11
+mov pc, r11*/

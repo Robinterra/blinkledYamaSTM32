@@ -4,50 +4,47 @@ namespace "Program"
     using "System.IO";
     using "System.Time";
     using "ARM.CortexM";
+    using "ARM.CortexM.Advanced";
 
     public class ProgramTest
     {
 
         #region get/set
 
-        private Gpio PinArt;
-        private int propValue;
-
-        public Gpio PortArt
-        {
-            get
-            {
-                return this.propValue;
-            }
-            set
-            {
-                this.propValue = invalue;
-            }
-        }
+        private GpioPin PinArt;
 
         #endregion get/set
 
-        static int main()
+        static int main (  )
         {
-            Gpio port = IORegister.PortA();
+            Gpio port = IORegister.PortA (  );
+            AnalogToDigitalConverter adc1 = IORegister.Adc1 (  );
+            ResetAndClockControl rcc = IORegister.Rcc (  );
+
+            rcc.EnableAdc1 (  );
+            adc1.Init (  );
 
             port.InitPort ( 2, IORegisterMode.Write );
-            //port.InitPort ( 1, IORegisterMode.Analog );
+            port.InitPort ( 1, IORegisterMode.Analog );
 
-            ProgramTest test = new ProgramTest(port, 2);
+            GpioPin pin = new GpioPin(port, 2);
 
-            //IORegister.InitAdc();
-            //int adcReg = IORegister.Adc1StartRegister();
+            ProgramTest test = new ProgramTest(pin);
 
             while (true)
             {
-                //int value = IORegister.ReadAnalog(adcReg, 1);
+                //int value = adc1.Read ( 1 );
 
-                //bool isAn = value > 0x0cff;//IORegister.Read ( port, 1 );
+                //bool isAn = value > 0x0cff;
 
-                test.An();
+                //if (isAn)
+                //{
+                    test.An();
 
-                Wait.InSeconds(1);
+                    Wait.InSeconds(1);
+
+                //    continue;
+                //}
 
                 test.Aus();
 
@@ -59,11 +56,8 @@ namespace "Program"
 
         #region ctor
 
-        public this new (int port, int pin)
+        public this new (GpioPin pin)
         {
-            //IORegister.InitPort ( port, pin, IORegisterMode.Write );
-
-            this.PortArt = port;
             this.PinArt = pin;
 
             return this;
@@ -80,11 +74,11 @@ namespace "Program"
 
         public bool An()
         {
-            IORegister.Write ( this.PortArt, this.PinArt, IOValue.High );
+            this.PinArt.Write ( IOValue.High );
         }
         public bool Aus()
         {
-            IORegister.Write ( this.PortArt, this.PinArt, IOValue.Low );
+            this.PinArt.Write ( IOValue.Low );
         }
 
         #endregion methods
