@@ -77,24 +77,35 @@ namespace "Program"
 
         // -----------------------------------------------
 
+        public bool GetSegmentValue ( int value )
+        {
+            if (value <= 0x0) return 0x77;
+            if (value <= 0x1) return 0x11;
+            if (value <= 0x2) return 0x3f;
+            if (value <= 0x3) return 0x3b;
+            if (value <= 0x4) return 0x59;
+            if (value <= 0x5) return 0x6b;
+            if (value <= 0x6) return 0x6f;
+            if (value <= 0x7) return 0x31;
+            if (value <= 0x8) return 0x7f;
+            if (value <= 0x9) return 0x7b;
+            if (value <= 0xa) return 0x7d;
+            if (value <= 0xb) return 0x6f;
+            if (value <= 0xc) return 0x66;
+            if (value <= 0xd) return 0x1f;
+            if (value <= 0xe) return 0x6e;
+            if (value <= 0xf) return 0x6c;
+
+            0x0;
+        }
+
+        // -----------------------------------------------
+
         public bool Write ( int value )
         {
-            if (value <= 0x0) return this.SetSegments ( 0x77 );
-            if (value <= 0x1) return this.SetSegments ( 0x11 );
-            if (value <= 0x2) return this.SetSegments ( 0x3f );
-            if (value <= 0x3) return this.SetSegments ( 0x3b );
-            if (value <= 0x4) return this.SetSegments ( 0x59 );
-            if (value <= 0x5) return this.SetSegments ( 0x6b );
-            if (value <= 0x6) return this.SetSegments ( 0x6f );
-            if (value <= 0x7) return this.SetSegments ( 0x31 );
-            if (value <= 0x8) return this.SetSegments ( 0x7f );
-            if (value <= 0x9) return this.SetSegments ( 0x7b );
-            if (value <= 0xa) return this.SetSegments ( 0x7d );
-            if (value <= 0xb) return this.SetSegments ( 0x6f );
-            if (value <= 0xc) return this.SetSegments ( 0x66 );
-            if (value <= 0xd) return this.SetSegments ( 0x1f );
-            if (value <= 0xe) return this.SetSegments ( 0x6e );
-            if (value <= 0xf) return this.SetSegments ( 0x6c );
+            int result = this.GetSegmentValue ( value );
+
+            this.SetSegments (result);
 
         }
 
