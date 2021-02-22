@@ -58,10 +58,6 @@ namespace "Program"
 
             while (true)
             {
-                //int value = adc1.Read ( 1 );
-
-                //bool isAn = value > 0x0cff;
-
                 for (int i = 0; i <= 0xf; i = i + 1)
                 {
                     display.Write ( i );

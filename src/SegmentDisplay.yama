@@ -52,149 +52,49 @@ namespace "Program"
 
         // -----------------------------------------------
 
-        private bool SetSegments ( int tr, int t, int tl, int m, int bl, int b, int br )
+        private bool SetSegments ( int value )
         {
-            this.SegmentTopLeft.Write(tr);
-            this.SegmentTop.Write(t);
-            this.SegmentTopRight.Write(tl);
-            this.SegmentMiddle.Write(m);
-            this.SegmentBottomLeft.Write(bl);
-            this.SegmentBottom.Write(b);
-            this.SegmentBottomRight.Write(br);
-        }
+            this.SegmentTopLeft.Write(value & 0x1);
 
-        // -----------------------------------------------
+            value = value >> 1;
+            this.SegmentTop.Write(value & 0x1);
 
-        private bool Print0 (  )
-        {
-            this.SetSegments(IOValue.High, IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.High, IOValue.High);
-        }
+            value = value >> 1;
+            this.SegmentTopRight.Write(value & 0x1);
 
-        // -----------------------------------------------
+            value = value >> 1;
+            this.SegmentMiddle.Write(value & 0x1);
 
-        private bool Print1 (  )
-        {
-            this.SetSegments(IOValue.Low, IOValue.Low, IOValue.High, IOValue.Low, IOValue.Low, IOValue.Low, IOValue.High);
-        }
+            value = value >> 1;
+            this.SegmentBottomLeft.Write(value & 0x1);
 
-        // -----------------------------------------------
+            value = value >> 1;
+            this.SegmentBottom.Write(value & 0x1);
 
-        private bool Print2 (  )
-        {
-            this.SetSegments(IOValue.Low, IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.Low);
-        }
-
-        // -----------------------------------------------
-
-        private bool Print3 (  )
-        {
-            this.SetSegments(IOValue.Low, IOValue.High, IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.High);
-        }
-
-        // -----------------------------------------------
-
-        private bool Print4 (  )
-        {
-            this.SetSegments(IOValue.High, IOValue.Low, IOValue.High, IOValue.High, IOValue.Low, IOValue.Low, IOValue.High);
-        }
-
-        // -----------------------------------------------
-
-        private bool Print5 (  )
-        {
-            this.SetSegments(IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.Low, IOValue.High, IOValue.High);
-        }
-
-        // -----------------------------------------------
-
-        private bool Print6 (  )
-        {
-            this.SetSegments(IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.High, IOValue.High, IOValue.High);
-        }
-
-        // -----------------------------------------------
-
-        private bool Print7 (  )
-        {
-            this.SetSegments(IOValue.Low, IOValue.High, IOValue.High, IOValue.Low, IOValue.Low, IOValue.Low, IOValue.High);
-        }
-
-        // -----------------------------------------------
-
-        private bool Print8 (  )
-        {
-            this.SetSegments(IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.High);
-        }
-
-        // -----------------------------------------------
-
-        private bool Print9 (  )
-        {
-            this.SetSegments(IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.High);
-        }
-
-        // -----------------------------------------------
-
-        private bool PrintA (  )
-        {
-            this.SetSegments(IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.Low, IOValue.High);
-        }
-
-        // -----------------------------------------------
-
-        private bool PrintB (  )
-        {
-            this.SetSegments(IOValue.High, IOValue.Low, IOValue.Low, IOValue.High, IOValue.High, IOValue.High, IOValue.High);
-        }
-
-        // -----------------------------------------------
-
-        private bool PrintC (  )
-        {
-            this.SetSegments(IOValue.High, IOValue.High, IOValue.Low, IOValue.Low, IOValue.High, IOValue.High, IOValue.Low);
-        }
-
-        // -----------------------------------------------
-
-        private bool PrintD (  )
-        {
-            this.SetSegments(IOValue.Low, IOValue.Low, IOValue.High, IOValue.High, IOValue.High, IOValue.High, IOValue.High);
-        }
-
-        // -----------------------------------------------
-
-        private bool PrintE (  )
-        {
-            this.SetSegments(IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.High, IOValue.High, IOValue.Low);
-        }
-
-        // -----------------------------------------------
-
-        private bool PrintF (  )
-        {
-            this.SetSegments(IOValue.High, IOValue.High, IOValue.Low, IOValue.High, IOValue.High, IOValue.Low, IOValue.Low);
+            value = value >> 1;
+            this.SegmentBottomRight.Write(value & 0x1);
         }
 
         // -----------------------------------------------
 
         public bool Write ( int value )
         {
-            if (value <= 0x0) return this.Print0 (  );
-            if (value <= 0x1) return this.Print1 (  );
-            if (value <= 0x2) return this.Print2 (  );
-            if (value <= 0x3) return this.Print3 (  );
-            if (value <= 0x4) return this.Print4 (  );
-            if (value <= 0x5) return this.Print5 (  );
-            if (value <= 0x6) return this.Print6 (  );
-            if (value <= 0x7) return this.Print7 (  );
-            if (value <= 0x8) return this.Print8 (  );
-            if (value <= 0x9) return this.Print9 (  );
-            if (value <= 0xa) return this.PrintA (  );
-            if (value <= 0xb) return this.PrintB (  );
-            if (value <= 0xc) return this.PrintC (  );
-            if (value <= 0xd) return this.PrintD (  );
-            if (value <= 0xe) return this.PrintE (  );
-            if (value <= 0xf) return this.PrintF (  );
+            if (value <= 0x0) return this.SetSegments ( 0x77 );
+            if (value <= 0x1) return this.SetSegments ( 0x11 );
+            if (value <= 0x2) return this.SetSegments ( 0x3f );
+            if (value <= 0x3) return this.SetSegments ( 0x3b );
+            if (value <= 0x4) return this.SetSegments ( 0x59 );
+            if (value <= 0x5) return this.SetSegments ( 0x6b );
+            if (value <= 0x6) return this.SetSegments ( 0x6f );
+            if (value <= 0x7) return this.SetSegments ( 0x31 );
+            if (value <= 0x8) return this.SetSegments ( 0x7f );
+            if (value <= 0x9) return this.SetSegments ( 0x7b );
+            if (value <= 0xa) return this.SetSegments ( 0x7d );
+            if (value <= 0xb) return this.SetSegments ( 0x6f );
+            if (value <= 0xc) return this.SetSegments ( 0x66 );
+            if (value <= 0xd) return this.SetSegments ( 0x1f );
+            if (value <= 0xe) return this.SetSegments ( 0x6e );
+            if (value <= 0xf) return this.SetSegments ( 0x6c );
 
         }
 
