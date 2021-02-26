@@ -2,11 +2,12 @@
 .cpu cortex-m4
 .thumb
 loop:
-mov r11, #1
+/*mov r11, #1
 push {r11}
 mov r12, #2
 ldr r1, [sp,#0x4]
-ldr r2, [sp,#0x0]
+ldr r2, [sp,#0x0]*/
+udiv r12, r1,r2
 
 b loop
 // RCC Aktiviere Gpios

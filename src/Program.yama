@@ -37,10 +37,8 @@ namespace "Program"
             portC.InitPort ( 4, IORegisterMode.Write );
         }
 
-        static int main (  )
+        static SegmentDisplay GetSgmentDisplay()
         {
-            ProgramTest.Init();
-
             Gpio port = IORegister.PortA (  );
             Gpio portC = IORegister.PortC (  );
 
@@ -54,16 +52,35 @@ namespace "Program"
             GpioPin pinT = new GpioPin(port, 7);
             GpioPin pinTr = new GpioPin(portC, 4);
 
-            SegmentDisplay display = new SegmentDisplay ( pinBr, pinB, pinBl, pinM, pinTr, pinT, pinTl );
+            new SegmentDisplay ( pinBr, pinB, pinBl, pinM, pinTr, pinT, pinTl );
+        }
+
+        static int main (  )
+        {
+            ProgramTest.Init();
+
+            AnalogToDigitalConverter adc1 = IORegister.Adc1 (  );
+
+            SegmentDisplay display = ProgramTest.GetSgmentDisplay();
 
             while (true)
             {
-                for (int i = 0; i <= 0xf; i = i + 1)
+                int value = adc1.Read ( 1 );
+
+                value = value / 24;
+
+                value = value + 0xBC;
+
+                display.Write ( value & 0xf );
+
+                /*for (int i = 0; i <= 0xf; i = i + 1)
                 {
                     display.Write ( i );
 
                     Wait.InSeconds ( 1 );
-                }
+                }*/
+
+                Wait.InSeconds ( 1 );
             }
 
             return 0;
