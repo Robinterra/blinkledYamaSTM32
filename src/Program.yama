@@ -6,7 +6,7 @@ namespace "Program"
     using "ARM.CortexM";
     using "ARM.CortexM.Advanced";
 
-    public class ProgramTest
+    public static class ProgramTest
     {
 
         #region get/set
@@ -15,40 +15,60 @@ namespace "Program"
 
         #endregion get/set
 
-        static int main (  )
+        private static bool Init (  )
         {
             Gpio port = IORegister.PortA (  );
+            Gpio portc = IORegister.PortC (  );
             AnalogToDigitalConverter adc1 = IORegister.Adc1 (  );
             ResetAndClockControl rcc = IORegister.Rcc (  );
 
+            rcc.EnableGpioPorts ( 0xf );
             rcc.EnableAdc1 (  );
             adc1.Init (  );
 
-            port.InitPort ( 2, IORegisterMode.Write );
+            port.InitPort ( 5, IORegisterMode.Write );
+            portc.InitPort ( 13, IORegisterMode.Read );
             port.InitPort ( 1, IORegisterMode.Analog );
+        }
 
-            GpioPin pin = new GpioPin(port, 2);
+        static int main (  )
+        {
+            ProgramTest.Init (  );
 
-            ProgramTest test = new ProgramTest(pin);
+            Gpio port = IORegister.PortA (  );
+            Gpio portc = IORegister.PortC (  );
 
+            GpioPin button = new GpioPin(portc, 13);
+            GpioPin led = new GpioPin(port, 5);
+
+            ProgramTest test = new ProgramTest(led);
+
+            bool isAn = false;
+            bool isDown = false;
             while (true)
             {
-                //int value = adc1.Read ( 1 );
+                if (!button.Read())
+                {
+                    if (!isDown)
+                    {
+                        isAn = !isAn;
+                    }
 
-                //bool isAn = value > 0x0cff;
+                    isDown = true;
+                }
+                else
+                {
+                    isDown = false;
+                }
 
-                //if (isAn)
-                //{
+                if (isAn)
+                {
                     test.An();
 
-                    Wait.InSeconds(1);
-
-                //    continue;
-                //}
+                    continue;
+                }
 
                 test.Aus();
-
-                Wait.InSeconds(1);
             }
 
             return 0;
