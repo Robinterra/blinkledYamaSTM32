@@ -26,9 +26,9 @@ namespace "Program"
             rcc.EnableAdc1 (  );
             adc1.Init (  );
 
-            port.InitPort ( 5, IORegisterMode.Write );
-            portc.InitPort ( 13, IORegisterMode.Read );
-            port.InitPort ( 1, IORegisterMode.Analog );
+            port.InitPort ( 5, PinMode.Write );
+            portc.InitPort ( 13, PinMode.Read );
+            port.InitPort ( 1, PinMode.Analog );
         }
 
         static int main (  )
@@ -94,11 +94,11 @@ namespace "Program"
 
         public bool An()
         {
-            this.PinArt.Write ( IOValue.High );
+            this.PinArt.Write ( PinValue.High );
         }
         public bool Aus()
         {
-            this.PinArt.Write ( IOValue.Low );
+            this.PinArt.Write ( PinValue.Low );
         }
 
         #endregion methods
