@@ -6,7 +6,7 @@ namespace "Program"
     using "ARM.CortexM";
     using "ARM.CortexM.Advanced";
 
-    public static class ProgramTest
+    public class ProgramTest
     {
 
         #region get/set
