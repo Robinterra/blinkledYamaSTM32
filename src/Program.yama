@@ -13,6 +13,8 @@ namespace "Program"
 
         private GpioPin PinArt;
 
+        private static int staticInt;
+
         #endregion get/set
 
         private static bool Init (  )
@@ -24,11 +26,17 @@ namespace "Program"
 
             rcc.EnableGpioPorts ( 0xf );
             rcc.EnableAdc1 (  );
+            int ticks = rcc.TicksPerSecond (  );
             adc1.Init (  );
 
             port.InitPort ( 5, PinMode.Write );
             portc.InitPort ( 13, PinMode.Read );
             port.InitPort ( 1, PinMode.Analog );
+
+            rcc.WaitTenMicroSeconds();
+
+            //SysTick systick = IORegister.SysTickRegister (  );
+            //systick.SysTick_Config ( ticks );
         }
 
         static int main (  )
@@ -43,7 +51,7 @@ namespace "Program"
 
             ProgramTest test = new ProgramTest(led);
 
-            bool isAn = false;
+            bool isAn = true;
             bool isDown = false;
             while (true)
             {
@@ -99,6 +107,12 @@ namespace "Program"
         public bool Aus()
         {
             this.PinArt.Write ( PinValue.Low );
+        }
+
+        #tag (InterruptSysTick)
+        public static bool Klaro (  )
+        {
+            ProgramTest.staticInt = 1;
         }
 
         #endregion methods
