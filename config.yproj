@@ -7,7 +7,7 @@ Out:"bin/outYama.bin"
 IROut:"bin/out.ir"
 AsmOut:"bin/out.S"
 
-Define:"STM32F401"
+Define:"stm32f4"
 Source:"src/"
 
 package: {
