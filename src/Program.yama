@@ -33,7 +33,7 @@ namespace "Program"
             portc.InitPort ( 13, PinMode.Read );
             port.InitPort ( 1, PinMode.Analog );
 
-            rcc.WaitTenMicroSeconds();
+            //rcc.WaitTenMicroSeconds();
 
             //SysTick systick = IORegister.SysTickRegister (  );
             //systick.SysTick_Config ( ticks );
