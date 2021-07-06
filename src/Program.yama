@@ -51,30 +51,16 @@ namespace "Program"
 
             ProgramTest test = new ProgramTest(led);
 
-            bool isAn = true;
+            bool isAn = false;
             bool isDown = false;
             while (true)
             {
-                if (!button.Read())
-                {
-                    if (!isDown)
-                    {
-                        isAn = !isAn;
-                    }
 
-                    isDown = true;
-                }
-                else
-                {
-                    isDown = false;
-                }
+                Wait.InSeconds(1);
 
-                if (isAn)
-                {
-                    test.An();
+                test.An();
 
-                    continue;
-                }
+                Wait.InSeconds(1);
 
                 test.Aus();
             }
