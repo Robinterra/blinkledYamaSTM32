@@ -53,14 +53,30 @@ namespace "Program"
 
             bool isAn = false;
             bool isDown = false;
+
             while (true)
             {
 
-                Wait.InSeconds(1);
+                if (!button.Read())
+                {
+                    if (!isDown)
+                    {
+                        isAn = !isAn;
+                    }
 
-                test.An();
+                    isDown = true;
+                }
+                else
+                {
+                    isDown = false;
+                }
 
-                Wait.InSeconds(1);
+                if (isAn)
+                {
+                    test.An();
+
+                    continue;
+                }
 
                 test.Aus();
             }
